@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agilus Careers</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="top-header">
+    <a href="https://agilusdiagnostics.com/" class="logo" target="_blank">
+      <div class="logo-text">
+        <object data="logo.svg" type="image/svg+xml"></object>
+      </div>
+    </a>
+    <div class="hamburger">&#9776;</div>
+    <ul id="nav-links" class="nav-links">
+      <li class="nav-item"><a href="#">Home</a></li>
+      <li class="nav-item dropdown">
+        <a href="#">Jobs</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Full-Time</a></li>
+          <li><a href="#">Part-Time</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#">Internship</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Remote</a></li>
+          <li><a href="#">In-Office</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#">Contact Us</a>
+        <ul class="dropdown-menu">
+          <li>91115-91115</li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown mail-us">
+        <a href="#">Mail Us</a>
+        <ul class="dropdown-menu">
+          <li><a href="mailto:careers@agilusdiagnostics.com">careers@agilusdiagnostics.com</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Career Section -->
+  <section class="career-section">
+    <div class="career-image">
+      <img src="image.webp" alt="Hero section image" width="704" height="412" class="hero-img" />
+    </div>
+    <div class="career-text">
+      <h1>Agilus Careers</h1>
+      <p>
+        At Agilus, we show up every day knowing our work helps someone get the answers they truly need.
+        It’s not just about diagnostics, it’s about people, care, and doing what’s right, even when no one’s watching.
+        We support each other, learn together, and take pride in every win - big or small.
+        Whether you're just starting out or have years of experience, there’s space to grow, move, and be heard.
+        You’ll find opportunities across the country, across roles, to build a career that fits your life and aspirations.
+        We notice effort. We value honesty. And we believe leadership can come from anywhere.
+        If you want your work to mean something real, this is the place.
+        All CVs and job applications can be mailed directly to
+        <a href="mailto:careers@agilus.in">careers@agilus.in</a>.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Apply Now Button -->
+  <section class="form-section">
+    <button class="apply-btn">Apply Now</button>
+  </section>
+
+  <div id="quizModal" class="modal">
+  <div class="modal-content quiz-box">
+    <span class="close" id="quiz-close">&times;</span>
+    <div id="quizContainer"></div>
+    <div id="quizProgress" class="progress-bar"></div>
+  </div>
+</div>
+  <!-- Modal Popup Form -->
+  <div id="formModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="modal-close">&times;</span>
+      <form id="applicationForm" enctype="multipart/form-data" method="POST" action="/submit">
+
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" name="name" required pattern="[A-Za-z ]+" title="Only Alphabets allowed" />
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input id="mobile" type="tel" name="mobile" required pattern="[1-9][0-9]{9}" title="Enter valid 10-Digit Number" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="linkedin">LinkedIn URL</label>
+          <input id="linkedin" type="url" name="linkedin" />
+        </div>
+        <div class="form-group">
+          <label for="job">Job Role</label>
+          <select id="job" name="job" required class="select-input">
+            <option value="">-- Select Job Role --</option>
+            <option value="Lab Technician">Lab Technician</option>
+            <option value="Pathologist">Pathologist</option>
+            <option value="Customer Support">Customer Support</option>
+            <option value="Data Entry Operator">Data Entry Operator</option>
+            <option value="IT Support">IT Support</option>
+            <option value="Sales Executive">Sales Executive</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="resume">Upload Resume (Pdf or Docx)</label>
+          <input id="resume" type="file" name="resume" accept=".pdf,.docx" required />
+          <small>Allowed file type: .pdf, .docx | Max Size: 2mb</small>
+        </div>
+        <div class="form-group">
+          <label for="captcha">Verify you're not a robot:</label>
+          <div id="recaptcha-container"></div>
+        </div>
+        <button type="submit">Submit</button>
+        <div id="loading-overlay" style="display:none;">
+          <p style="margin-top: 12px; font-size: 16px; color: #143C7D;">Submitting Your Application...</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- reCAPTCHA API -->
+  <script>
+    let recaptchaWidgetId;
+    function renderRecaptcha() {
+      if (typeof grecaptcha !== "undefined") {
+        if (recaptchaWidgetId !== undefined) {
+          grecaptcha.reset(recaptchaWidgetId);
+        } else {
+          recaptchaWidgetId = grecaptcha.render('recaptcha-container', {
+            'sitekey': '6LcbMJUrAAAAAEI10GXr6IXEMk18WUTrrA-tYjsT'
+          });
+        }
+      }
+    }
+    window.renderRecaptcha = renderRecaptcha;
+  </script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=renderRecaptcha&render=explicit" async defer></script>
+
+<div id="quizSection" class="quiz-container">
+  <div id="quizQuestions"></div>
+</div>
+
+
+
+
+  <script>
+    // Modal open/close and reCAPTCHA
+    const modal = document.getElementById("formModal");
+    const applyBtn = document.querySelector(".apply-btn");
+    const closeBtn = document.getElementById("modal-close");
+    const form = document.getElementById("applicationForm");
+    const loadingOverlay = document.getElementById("loading-overlay");
+
+    applyBtn.addEventListener("click", (e) => {
+      //e.stopPropagation();//
+      startQuiz();
+      //modal.style.display = "block";//
+      //form.style.display = "flex";//
+      setTimeout(renderRecaptcha, 100); // Ensure recaptcha always loads
+    });
+
+    closeBtn.addEventListener("click", (e) => {
+      modal.style.display = "none";
+      form.reset();
+      renderRecaptcha();
+      e.stopPropagation();
+    });
+    window.onclick = event => {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        form.reset();
+        renderRecaptcha();
+      }
+    };
+
+    // Navbar and dropdown
+    document.addEventListener("DOMContentLoaded", () => {
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.getElementById("nav-links");
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navLinks.classList.toggle("open");
+      });
+
+      const navItems = document.querySelectorAll(".nav-item.dropdown");
+      navItems.forEach(item => {
+        item.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (window.innerWidth <= 768) {
+            item.classList.toggle("open");
+            navItems.forEach(other => {
+              if (other !== item) other.classList.remove("open");
+            });
+          }
+        });
+      });
+      // Prevent closing dropdown if clicking inside the menu
+      navLinks.addEventListener("click", (e) => e.stopPropagation());
+      // Close nav/dropdowns on body click (mobile)
+      document.body.addEventListener("click", (e) => {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove("open");
+          navItems.forEach(item => item.classList.remove("open"));
+        }
+      });
+    });
+
+    const CULTURE_QUIZ_QUESTIONS = [
+    { question: "🤝 When working in a team, you prefer to...", options: [
+      { text: "Lead and organize tasks", score: { "Pathologist": 2, "Team Leader": 2 } },
+      { text: "Support and collaborate actively", score: { "Lab Technician": 1, "Customer Support": 2 } },
+      { text: "Work independently", score: {} }
+    ]},
+    { question: "⚡ When facing challenges, your first reaction is...", options: [
+      { text: "Stay calm and analyze solutions", score: { "IT Support": 2, "Pathologist": 2 } },
+      { text: "Ask colleagues for help", score: { "Customer Support": 1, "Lab Technician": 1 } },
+      { text: "Wait and see", score: {} }
+    ]},
+    { question: "🎯 What motivates you the most?", options: [
+      { text: "Reaching ambitious goals", score: { "Sales Executive": 2, "Team Leader": 2 } },
+      { text: "Completing tasks with accuracy", score: { "Lab Technician": 2, "Data Entry Operator": 2 } },
+      { text: "Recognition from customers", score: { "Customer Support": 2 } }
+    ]},
+    { question: "📊 How do you like to handle data?", options: [
+      { text: "Analyze patterns", score: { "IT Support": 2 } },
+      { text: "Ensure accuracy in entry", score: { "Data Entry Operator": 2 } },
+      { text: "Delegate to others", score: {} }
+    ]},
+    { question: "🧪 In a lab, you prefer to...", options: [
+      { text: "Run tests directly", score: { "Lab Technician": 2 } },
+      { text: "Interpret results", score: { "Pathologist": 2 } },
+      { text: "Assist others", score: { "Customer Support": 1 } }
+    ]},
+    { question: "📞 When customers call, you usually...", options: [
+      { text: "Resolve calmly", score: { "Customer Support": 2 } },
+      { text: "Forward to experts", score: {} },
+      { text: "Sell them services", score: { "Sales Executive": 2 } }
+    ]},
+    { question: "💻 If the computer crashes, you will...", options: [
+      { text: "Troubleshoot instantly", score: { "IT Support": 2 } },
+      { text: "Ask IT team", score: {} },
+      { text: "Ignore it", score: {} }
+    ]},
+    { question: "🧑‍🔬 You enjoy...", options: [
+      { text: "Working with samples", score: { "Lab Technician": 2 } },
+      { text: "Diagnosing diseases", score: { "Pathologist": 2 } },
+      { text: "Helping patients directly", score: { "Customer Support": 1 } }
+    ]},
+    { question: "💼 Your career growth is focused on...", options: [
+      { text: "Leadership roles", score: { "Team Leader": 2 } },
+      { text: "Technical mastery", score: { "Pathologist": 2, "IT Support": 2 } },
+      { text: "Customer relations", score: { "Customer Support": 2, "Sales Executive": 2 } }
+    ]},
+    { question: "📚 When learning something new, you prefer...", options: [
+      { text: "Step-by-step accuracy", score: { "Data Entry Operator": 2 } },
+      { text: "Hands-on experiments", score: { "Lab Technician": 2 } },
+      { text: "Interactive discussions", score: { "Customer Support": 2 } }
+    ]}
+  ];
+
+  const quizModal = document.getElementById("quizModal");
+  const formModal = document.getElementById("formModal");
+  const quizContainer = document.getElementById("quizContainer");
+  const quizProgress = document.getElementById("quizProgress");
+  const quizCloseBtn = document.getElementById("quiz-close");
+
+  let currentQ = 0;
+  let answers = [];
+  let selectedQuestions = [];
+
+  function startQuiz() {
+    // Pick 5 random questions
+    selectedQuestions = [...CULTURE_QUIZ_QUESTIONS]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 5);
+
+    quizModal.style.display = "block";
+    currentQ = 0;
+    answers = [];
+    updateProgress();
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = selectedQuestions[currentQ];
+    quizContainer.classList.remove("fade-in");
+    quizContainer.innerHTML = `
+      <h2>Q${currentQ+1}/5: ${q.question}</h2>
+      <div class="options">
+        ${q.options.map((op,i)=>
+          `<button type="button" class="option-btn" onclick="answerQuestion(${i})">${op.text}</button>`
+        ).join("")}
+      </div>
+    `;
+    setTimeout(()=>quizContainer.classList.add("fade-in"),50);
+  }
+
+  function updateProgress() {
+    const progressPercent = ((currentQ) / 5) * 100;
+    quizProgress.style.width = progressPercent + "%";
+  }
+
+  function answerQuestion(choiceIdx) {
+    answers[currentQ] = choiceIdx;
+    currentQ++;
+    updateProgress();
+    if (currentQ < 5) {
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  function finishQuiz() {
+    updateProgress(); // ensure 100%
+    quizContainer.innerHTML = `
+      <div class="quiz-finish">
+        <h2>🎉 Well Done!</h2>
+        <p>You have completed the quiz.</p>
+        <div class="quiz-actions">
+          <button type="button" class="option-btn" onclick="endQuizGoBack()">⬅ Go Back</button>
+          <button type="button" class="option-btn" onclick="endQuizContinue()">➡ Continue</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function endQuizGoBack() {
+    quizModal.style.display="none";
+  }
+
+  function endQuizContinue() {
+    const form=document.getElementById("applicationForm");
+
+    // === Role scoring based on selected questions ===
+    let scores={
+      "Lab Technician":0,
+      "Pathologist":0,
+      "Customer Support":0,
+      "Data Entry Operator":0,
+      "IT Support":0,
+      "Sales Executive":0,
+      "Other":0
+    };
+
+    selectedQuestions.forEach((q,i)=>{
+      let ans=answers[i];
+      if(ans!==undefined){
+        for(let role in q.options[ans].score){
+          scores[role]+=q.options[ans].score[role];
+        }
+      }
+    });
+
+    // Eligible roles are those with score >= 2
+    const eligible=Object.keys(scores).filter(r=>scores[r]>=2);
+
+    // Filter job dropdown
+    const jobSel=document.getElementById("job");
+    Array.from(jobSel.options).forEach(opt=>{
+      opt.style.display=(
+        opt.value==="" ||
+        eligible.includes(opt.value) ||
+        opt.value==="Other"
+      ) ? "block" : "none";
+    });
+
+    // === Save quiz data into hidden field for backend ===
+    const oldHidden=document.querySelector("input[name='quizData']");
+    if(oldHidden) oldHidden.remove();
+    const hidden=document.createElement("input");
+    hidden.type="hidden";
+    hidden.name="quizData";
+    hidden.value=JSON.stringify({
+      selectedQuestions: selectedQuestions.map((q)=>q.question),
+      quizAnswers: answers
+    });
+    form.appendChild(hidden);
+
+    // Switch modals
+    quizModal.style.display="none";
+    formModal.style.display="block";
+  }
+
+  quizCloseBtn.addEventListener("click",() =>{
+    quizModal.style.display="none";
+  });
+
+
+    // Form submit with AJAX and centered messages
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Client side file validation
+      const fileInput = document.getElementById('resume');
+      const file = fileInput.files[0];
+      if (file) {
+        const allowedTypes = [
+          'application/pdf',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        if (!allowedTypes.includes(file.type)) {
+          alert('Invalid file type. Only PDF or DOCX allowed.');
+          return false;
+        }
+        if (file.size < 100 * 1024 || file.size > 2 * 1024 * 1024) {
+          alert('File must be between 100KB and 2MB.');
+          return false;
+        }
+      }
+
+      loadingOverlay.style.display = "flex";
+      const formData = new FormData(form);
+      try {
+        const resp = await fetch(form.action, { method: 'POST', body: formData });
+        const data = await resp.json();
+        loadingOverlay.style.display = "none";
+
+        if (data.status === 'success') {
+          document.body.innerHTML = `
+            <div class="center-screen">
+              <div class="success-box">
+                <h1>🎉 Application Submitted!</h1>
+                <p>Thank you, <b>${data.name}</b>. We’ll get back to you soon.</p>
+                <a href="/" class="btn-back">Go Back</a>
+              </div>
+            </div>
+          `;
+        } else if (data.status === 'malicious') {
+          document.body.innerHTML = `
+            <div class="center-screen">
+              <div class="success-box error">
+                <h1>🚨 Malicious Content Detected!</h1>
+                <p>Your file submission does not meet our safety criteria. Please upload a clean document.</p>
+                <a href="/" class="btn-back">Go Back</a>
+              </div>
+            </div>
+          `;
+        } else {
+          document.body.innerHTML = `
+            <div class="center-screen">
+              <div class="success-box error">
+                <h1>🚨 Error!</h1>
+                <p>${data.message || 'Submission failed. Try again.'}</p>
+                <a href="/" class="btn-back">Go Back</a>
+              </div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        loadingOverlay.style.display = "none";
+        document.body.innerHTML = `
+          <div class="center-screen">
+            <div class="success-box error">
+              <h1>🚨 Error!</h1>
+              <p>Submission failed. Please try again.</p>
+              <a href="/" class="btn-back">Go Back</a>
+            </div>
+          </div>
+        `;
+      }
+    });
+  </script>
+
+
+</body>
+</html>
